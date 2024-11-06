@@ -4,6 +4,68 @@
     <title>Ryan Pearlman</title>
     <meta name="author" content="Ryan"/>
 </head>
+<style>
+    body {
+        cursor: help; /* Cursor will change to a hand symbol */
+        background-color: turquoise;
+    }
+</style>
+<body>
+    <script>
+        // Define both default and custom cursors
+        const defaultCursors = ['help', 'pointer', 'crosshair', 'wait', 'progress', 'text', 'move'];
+        const customCursors = ["pointer2.png", 'copymouse.png', 'orange.png', 'help.png']; // Add any custom cursor images here
+        const allCursors = [...defaultCursors, ...customCursors]; // Combine both arrays into one list
+
+        const hotspotX = 16; // Assuming the center of the 32x32 image
+        const hotspotY = 16; // Assuming the center of the 32x32 image
+        
+        let lastX = 0; // Last mouse X position
+        let lastY = 0; // Last mouse Y position
+        const movementThreshold = 1; // Minimum distance in pixels before cursor switches
+
+        // Function to calculate the distance moved by the mouse
+        function calculateDistance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)); // Euclidean distance
+        }
+
+        // Function to get a random cursor from the list
+        function getRandomCursor() {
+            const randomIndex = Math.floor(Math.random() * allCursors.length); // Random index
+            const selectedCursor = allCursors[randomIndex];
+
+            // Check if it's a custom cursor (image) or a default cursor (string)
+            if (customCursors.includes(selectedCursor)) {
+                return `url(${selectedCursor}) ${hotspotX} ${hotspotY}, auto`; // Custom image cursor
+            } else {
+                return selectedCursor; // Default cursor like 'pointer', 'help', etc.
+            }
+        }
+
+        // Function to alternate cursor images based on larger mouse movement
+        function changeCursor(event) {
+            const deltaX = event.clientX;
+            const deltaY = event.clientY;
+
+            // Calculate the distance moved since the last event
+            const distanceMoved = calculateDistance(lastX, lastY, deltaX, deltaY);
+
+            // If the distance moved exceeds the threshold, switch the cursor
+            if (distanceMoved > movementThreshold) {
+                // Get a random cursor from the list and apply it
+                document.body.style.cursor = getRandomCursor();
+
+                // Update the last mouse position
+                lastX = deltaX;
+                lastY = deltaY;
+            }
+        }
+
+        // Event listener for mouse movement
+        document.addEventListener('mousemove', changeCursor);
+    </script>
+</body>
+
 <body>
     <h2>Welcome!</h2>
     <h2><a href="https://www.instagram.com/p/C0mo-TCvOCe/?igsh=MTJydGtoODRzMTJ5dA%3D%3D&img_index=1">Introduction to me! (Instagram Video)</a></h2>
