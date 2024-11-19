@@ -12,7 +12,7 @@
 </style>
 <body>
     <script>
-        const cursors = ['images/pointer2.png', 'images/copymouse.png', 'images/orange.png', "images/help.png"];
+        const cursors = ['images/gray.png', 'images/blue.png', 'images/orange.png', "images/hand.png"];
         const defaultCursors = ['auto', 'pointer', 'crosshair', 'move', 'text', 'wait', "help", "progress"];
         document.onmousemove = () => {
           const cursor = cursors[Math.random() * cursors.length | 0];
@@ -21,6 +21,7 @@
           img.onerror = () => document.body.style.cursor = defaultCursors[Math.random() * defaultCursors.length | 0];
           img.src = cursor;
         };
+        let clickCount = 0;
       </script>
 </body>
 
@@ -48,7 +49,8 @@
     </div>
     
     <button id="changeColorButton" style="margin: 20px; padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">Change Background Color</button>
-    
+    <span>Button clicks: <span id="clickCount">0</span></span>
+
     <script>
         function getRandomColor() {
             const letters = '0123456789ABCDEF';
@@ -61,6 +63,12 @@
     
         function changeBackgroundColor() {
             document.body.style.backgroundColor = getRandomColor();
+            clickCount++;
+            const clickCountElement = document.getElementById('clickCount');
+            document.getElementById('clickCount').innerText = clickCount;
+            if (clickCount >= 20) {
+            clickCountElement.innerText += ' Level up!';
+            }
         }
     
         document.getElementById('changeColorButton').addEventListener('click', changeBackgroundColor);
@@ -68,7 +76,7 @@
         const testimonials = [
             '"This is the best webpage ever!" - Literally everyone',
             '"Ryan is a great person, amazing friend, and phenomenal student." - Me',
-            '"I simply have never laid my eyes upon something so beatiful such as this website." - Probably you right now',
+            '"I simply have never laid my eyes upon something so beautiful such as this website." - Probably you right now',
             '"Okay. Really? It is so obvious you had ChatGPT make this entire thing for you" - All the CS majors in my life',
             '"It was GitHub CoPilot! And I wrote a good amount of it! And, I am supposed to use it! Stop judging." - I plead the fifth if that was me or not'
         ];
