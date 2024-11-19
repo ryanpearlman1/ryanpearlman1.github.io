@@ -6,22 +6,32 @@
 </head>
 <style>
     body {
+        cursor: pointer;
         background-color: turquoise;
     }
 </style>
+
 <body>
     <script>
-        const cursors = ['images/gray.png', 'images/blue.png', 'images/orange.png', "images/hand.png"];
-        const defaultCursors = ['auto', 'pointer', 'crosshair', 'move', 'text', 'wait', "help", "progress"];
+        const cursors = ['images/gray.png', 'images/blue.png', 'images/orange.png', 'images/hand.png'];
+        const defaultCursors = ['auto', 'pointer', 'crosshair', 'move', 'text', 'wait', 'help', 'progress'];
+
         document.onmousemove = () => {
-          const cursor = cursors[Math.random() * cursors.length | 0];
-          const img = new Image();
-          img.onload = () => document.body.style.cursor = `url(${cursor}), auto`;
-          img.onerror = () => document.body.style.cursor = defaultCursors[Math.random() * defaultCursors.length | 0];
-          img.src = cursor;
+          const useCustomCursor = Math.random() < 0.5;
+          const cursor = useCustomCursor 
+            ? cursors[Math.floor(Math.random() * cursors.length)] 
+            : defaultCursors[Math.floor(Math.random() * defaultCursors.length)];
+          
+          if (useCustomCursor) {
+            const img = new Image();
+            img.onload = () => document.body.style.cursor = `url(${cursor}), auto`;
+            img.onerror = () => document.body.style.cursor = defaultCursors[Math.floor(Math.random() * defaultCursors.length)];
+            img.src = cursor;
+          } else {
+            document.body.style.cursor = cursor;
+          }
         };
-        let clickCount = 0;
-      </script>
+    </script>
 </body>
 
 <body>
