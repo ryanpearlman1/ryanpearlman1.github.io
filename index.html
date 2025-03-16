@@ -3,6 +3,7 @@
 <head>
     <title>Ryan Pearlman</title>
     <meta name="author" content="Ryan"/>
+    <meta charset="UTF-8">
 </head>
 
 <style>
@@ -566,8 +567,11 @@
             clickCount++;
             const clickCountElement = document.getElementById('clickCount');
             document.getElementById('clickCount').innerText = clickCount;
-            if (clickCount >= 20) {
-            clickCountElement.innerText += ' Level up!';
+            if (clickCount >= 100) {
+                clickCountElement.innerText += ' 🔥🔥🔥';
+            }
+            else if (clickCount >= 20) {
+                clickCountElement.innerText += ' Level up!';
             }
         }
     
